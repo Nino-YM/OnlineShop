@@ -7,36 +7,20 @@ use Illuminate\Http\Request;
 
 class FavoriteController extends Controller
 {
-    public function index()
+    public function __construct()
     {
-        $favorites = Favorite::with('product')->get();
-        return view('favorites.index', compact('favorites'));
+        $this->middleware('auth');
     }
 
-    public function create()
+    public function index()
     {
-        return view('favorites.create');
+        $favorites = Favorite::with('product')->where('user_id', auth()->id())->get();
+        return view('favorites.index', compact('favorites'));
     }
 
     public function store(Request $request)
     {
         Favorite::create($request->all());
-        return redirect()->route('favorites.index');
-    }
-
-    public function show(Favorite $favorite)
-    {
-        return view('favorites.show', compact('favorite'));
-    }
-
-    public function edit(Favorite $favorite)
-    {
-        return view('favorites.edit', compact('favorite'));
-    }
-
-    public function update(Request $request, Favorite $favorite)
-    {
-        $favorite->update($request->all());
         return redirect()->route('favorites.index');
     }
 

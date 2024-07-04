@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+        $this->middleware('isAdmin')->except(['index', 'show']);
+    }
+    
     public function index()
     {
         $categories = Category::all();

@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class PromotionController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+        $this->middleware('isAdmin')->except(['index', 'show']);
+    }
+
     public function index()
     {
         $promotions = Promotion::all();

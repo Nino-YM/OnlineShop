@@ -7,6 +7,12 @@ use Illuminate\Http\Request;
 
 class ReviewController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('isAdmin')->except(['index', 'show']);
+    }
+
     public function index()
     {
         $reviews = Review::with('product', 'user')->get();
