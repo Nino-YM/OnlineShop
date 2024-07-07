@@ -10,9 +10,8 @@ class CategoryController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except(['index', 'show']);
-        $this->middleware('isAdmin')->except(['index', 'show']);
     }
-    
+
     public function index()
     {
         $categories = Category::all();
@@ -21,11 +20,13 @@ class CategoryController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Category::class);
         return view('categories.create');
     }
 
     public function store(Request $request)
     {
+        $this->authorize('create', Category::class);
         Category::create($request->all());
         return redirect()->route('categories.index');
     }
@@ -37,17 +38,20 @@ class CategoryController extends Controller
 
     public function edit(Category $category)
     {
+        $this->authorize('update', $category);
         return view('categories.edit', compact('category'));
     }
 
     public function update(Request $request, Category $category)
     {
+        $this->authorize('update', $category);
         $category->update($request->all());
         return redirect()->route('categories.index');
     }
 
     public function destroy(Category $category)
     {
+        $this->authorize('delete', $category);
         $category->delete();
         return redirect()->route('categories.index');
     }

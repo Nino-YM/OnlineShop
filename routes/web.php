@@ -12,6 +12,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\PromotionController;
+use App\Http\Controllers\CartController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
@@ -21,14 +22,13 @@ Route::resource('products', ProductController::class)->only(['index', 'show']);
 Route::resource('categories', CategoryController::class)->only(['index', 'show']);
 Route::resource('promotions', PromotionController::class)->only(['index', 'show']);
 
+Route::resource('cart', CartController::class)->only(['index', 'store', 'destroy']);
+
 Route::middleware('auth')->group(function () {
     Route::resource('favorites', FavoriteController::class)->only(['index', 'store', 'destroy']);
     Route::resource('orders', OrderController::class)->only(['index', 'store', 'destroy', 'show']);
     Route::resource('addresses', AddressController::class)->only(['index', 'store', 'edit', 'update', 'destroy', 'show', 'create']);
     Route::resource('reviews', ReviewController::class)->only(['store', 'destroy']);
-});
-
-Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::resource('users', UserController::class);
     Route::resource('roles', RoleController::class);
     Route::resource('products', ProductController::class)->except(['index', 'show']);

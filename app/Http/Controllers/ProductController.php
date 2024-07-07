@@ -10,7 +10,6 @@ class ProductController extends Controller
     public function __construct()
     {
         $this->middleware('auth')->except(['index', 'show']);
-        $this->middleware('isAdmin')->except(['index', 'show']);
     }
 
     public function index()
@@ -21,11 +20,13 @@ class ProductController extends Controller
 
     public function create()
     {
+        $this->authorize('create', Product::class);
         return view('products.create');
     }
 
     public function store(Request $request)
     {
+        $this->authorize('create', Product::class);
         Product::create($request->all());
         return redirect()->route('products.index');
     }
@@ -37,17 +38,20 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
+        $this->authorize('update', $product);
         return view('products.edit', compact('product'));
     }
 
     public function update(Request $request, Product $product)
     {
+        $this->authorize('update', $product);
         $product->update($request->all());
         return redirect()->route('products.index');
     }
 
     public function destroy(Product $product)
     {
+        $this->authorize('delete', $product);
         $product->delete();
         return redirect()->route('products.index');
     }

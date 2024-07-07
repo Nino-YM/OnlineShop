@@ -27,6 +27,9 @@
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('promotions.index') }}">Promotions</a>
                 </li>
+                <li class="nav-item">
+                        <a class="nav-link" href="{{ route('cart.index') }}">My cart</a>
+                </li>
                 @auth
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('orders.index') }}">Orders</a>
@@ -37,20 +40,23 @@
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('addresses.index') }}">Addresses</a>
                     </li>
-                    @if (auth()->user()->is_admin)
+                    @can('viewAny', \App\Models\User::class)
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('roles.index') }}">Roles</a>
                         </li>
+                    @endcan
+                    @can('viewAny', \App\Models\User::class)
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('users.index') }}">Users</a>
                         </li>
-                    @endif
+                    @endcan
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                             @csrf
                         </form>
                     </li>
+
                 @else
                     <li class="nav-item">
                         <a class="nav-link" href="{{ route('login') }}">Login</a>
