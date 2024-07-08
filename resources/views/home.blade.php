@@ -44,22 +44,26 @@
         <h2>Featured Products</h2>
         <div class="row">
             @foreach($products as $product)
-                <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
-                        <img src="{{ $product->image_url }}" class="card-img-top" alt="{{ $product->name }}">
-                        <div class="card-body">
+                <div class="col-md-4 d-flex align-items-stretch">
+                    <div class="card mb-4 shadow-sm flex-fill">
+                        <div class="image-container">
+                            <img src="{{ $product->image_url }}" class="card-img-top img-custom" alt="{{ $product->name }}">
+                        </div>
+                        <div class="card-body d-flex flex-column">
                             <h5 class="card-title">{{ $product->name }}</h5>
                             <p class="card-text">{{ $product->description }}</p>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <div class="btn-group">
-                                    <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-outline-secondary">View</a>
-                                    <form action="{{ route('cart.store') }}" method="POST" style="display:inline-block;">
-                                    @csrf
-                                    <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                    <button type="submit" class="btn btn-sm btn-outline-success">Add to Cart</button>
-                                </form>
+                            <div class="mt-auto">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="btn-group">
+                                        <a href="{{ route('products.show', $product) }}" class="btn btn-sm btn-outline-secondary">View</a>
+                                        <form action="{{ route('cart.store') }}" method="POST" style="display:inline-block;">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                            <button type="submit" class="btn btn-sm btn-outline-success">Add to Cart</button>
+                                        </form>
+                                    </div>
+                                    <small class="text-muted">${{ $product->price }}</small>
                                 </div>
-                                <small class="text-muted">${{ $product->price }}</small>
                             </div>
                         </div>
                     </div>
@@ -67,4 +71,50 @@
             @endforeach
         </div>
     </div>
+@endsection
+
+@section('styles')
+<style>
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f8f9fa;
+    }
+    .card-custom {
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+    .image-container {
+        width: 100%;
+        height: 200px;
+        overflow: hidden;
+    }
+    .img-custom {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+    .card {
+        transition: transform 0.2s ease-in-out;
+    }
+    .card:hover {
+        transform: scale(1.05);
+    }
+    .btn-outline-secondary {
+        color: #343a40;
+        border-color: #343a40;
+    }
+    .btn-outline-secondary:hover {
+        background-color: #343a40;
+        color: white;
+    }
+    .btn-outline-success {
+        color: #28a745;
+        border-color: #28a745;
+    }
+    .btn-outline-success:hover {
+        background-color: #28a745;
+        color: white;
+    }
+</style>
 @endsection

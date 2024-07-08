@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Log;
 use App\Models\Product;
 use App\Models\Promotion;
 use Illuminate\Http\Request;
@@ -66,30 +67,18 @@ class PromotionController extends Controller
     public function edit(Promotion $promotion)
     {
         $this->authorize('update', $promotion);
-        $products = Product::all(); // Fetch all products to pass to the view
+        $products = Product::all();
         return view('promotions.edit', compact('promotion', 'products'));
     }
 
     public function update(Request $request, Promotion $promotion)
     {
         $this->authorize('update', $promotion);
-
-        $validatedData = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required|string',
-            'discount_percentage' => 'required|numeric|min:0|max:100',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'products' => 'required|array',
-            'products.*' => 'exists:products,id',
-        ]);
-
-        $promotion->update($validatedData);
-        $promotion->products()->sync($request->products);
-
+        $promotion->update($request->all());
         return redirect()->route('promotions.index');
     }
 
+    
     public function destroy(Promotion $promotion)
     {
         $this->authorize('delete', $promotion);
