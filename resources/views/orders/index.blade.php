@@ -3,11 +3,11 @@
 @section('title', 'Orders')
 
 @section('content')
-    <h1>Orders</h1>
+    <h1 class="text-center mb-4">Orders</h1>
     <div class="row">
         @foreach($orders as $order)
             <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
+                <div class="card mb-4 shadow-sm card-custom">
                     <div class="card-body">
                         <h5 class="card-title">Order #{{ $order->id }}</h5>
                         <p class="card-text">Total Price: ${{ $order->total_price }}</p>

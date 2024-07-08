@@ -35,7 +35,7 @@
                     @endforeach
                 </select>
             </div>
-            <button type="submit" class="btn btn-primary">Create Promotion</button>
+            <button type="submit" class="btn btn-custom">Create Promotion</button>
         </form>
     </div>
 @endsection

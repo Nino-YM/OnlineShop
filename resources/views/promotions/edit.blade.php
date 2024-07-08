@@ -28,7 +28,7 @@
                 <label for="end_date">End Date</label>
                 <input type="date" name="end_date" class="form-control" id="end_date" value="{{ $promotion->end_date->format('Y-m-d') }}" required>
             </div>
-            <button type="submit" class="btn btn-primary">Update Promotion</button>
+            <button type="submit" class="btn btn-custom">Update Promotion</button>
         </form>
     </div>
 @endsection

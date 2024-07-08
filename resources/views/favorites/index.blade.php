@@ -7,7 +7,7 @@
     <div class="row">
         @foreach($favorites as $favorite)
             <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
+                <div class="card mb-4 shadow-sm card-custom">
                     <img src="{{ $favorite->product->image_url }}" class="card-img-top" alt="{{ $favorite->product->name }}">
                     <div class="card-body">
                         <h5 class="card-title">{{ $favorite->product->name }}</h5>

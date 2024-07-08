@@ -8,7 +8,7 @@
         @if (auth()->check())
             @forelse ($cartItems as $cartItem)
                 <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
+                    <div class="card mb-4 shadow-sm card-custom">
                         <img src="{{ $cartItem->product->image_url }}" class="card-img-top" alt="{{ $cartItem->product->name }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ $cartItem->product->name }}</h5>
@@ -37,7 +37,7 @@
                     $product = \App\Models\Product::find($cartItem['product_id']);
                 @endphp
                 <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
+                    <div class="card mb-4 shadow-sm card-custom">
                         <img src="{{ $product->image_url }}" class="card-img-top" alt="{{ $product->name }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ $product->name }}</h5>

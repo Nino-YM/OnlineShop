@@ -6,7 +6,7 @@
     <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-md-6">
-                <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="img-fluid mx-auto d-block">
+                <img src="{{ $product->image_url }}" alt="{{ $product->name }}" class="img-fluid mx-auto d-block rounded">
             </div>
             <div class="col-md-6">
                 <h1 class="text-center">{{ $product->name }}</h1>
@@ -72,7 +72,7 @@
                             <label for="comment">Comment</label>
                             <textarea name="comment" id="comment" class="form-control" rows="3" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                        <button type="submit" class="btn btn-custom mb-3">Submit Review</button>
                     </form>
                 @else
                     <p>Please <a href="{{ route('login') }}">login</a> to leave a review.</p>

@@ -40,6 +40,6 @@
                 </div>
             @endforeach
         </div>
-        <a href="{{ route('promotions.index') }}" class="btn btn-primary mt-3">Back to Promotions</a>
+        <a href="{{ route('promotions.index') }}" class="btn btn-custom">Back to Promotions</a>
     </div>
 @endsection

@@ -4,11 +4,11 @@
 
 @section('content')
     <h1>Addresses</h1>
-    <a href="{{ route('addresses.create') }}" class="btn btn-primary mb-3">Add New Address</a>
+    <a href="{{ route('addresses.create') }}" class="btn btn-custom mb-3">Add New Address</a>
     <div class="row">
         @foreach($addresses as $address)
             <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
+                <div class="card mb-4 shadow-sm card-custom">
                     <div class="card-body">
                         <h5 class="card-title">{{ $address->name }}</h5>
                         <p class="card-text">{{ $address->city }}, {{ $address->postal_code }}</p>

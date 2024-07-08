@@ -35,5 +35,5 @@
         @endforeach
     </div>
 
-    <a href="{{ route('categories.index') }}" class="btn btn-primary mt-4">Back to Categories</a>
+    <a href="{{ route('categories.index') }}" class="btn btn-custom">Back to Categories</a>
 @endsection

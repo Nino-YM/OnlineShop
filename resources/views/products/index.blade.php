@@ -3,17 +3,17 @@
 @section('title', 'Products')
 
 @section('content')
-    <h1>Products</h1>
+    <h1 class="text-center mb-4">Products</h1>
     @auth
         @if (auth()->user()->role_id === 1)
-            <a href="{{ route('products.create') }}" class="btn btn-primary mb-3">Add New Product</a>
+            <a href="{{ route('products.create') }}" class="btn btn-custom mb-3">Add New Product</a>
         @endif
     @endauth
     <div class="row">
         @foreach($products as $product)
             @if ($product->stock_quantity > 0)
                 <div class="col-md-4">
-                    <div class="card mb-4 shadow-sm">
+                    <div class="card mb-4 shadow-sm card-custom">
                         <img src="{{ $product->image_url }}" class="card-img-top" alt="{{ $product->name }}">
                         <div class="card-body">
                             <h5 class="card-title">{{ $product->name }}</h5>

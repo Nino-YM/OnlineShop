@@ -1,0 +1,41 @@
+/* Custom button styles */
+.btn-custom {
+    background-color: #28a745; /* Primary color */
+    border: none;
+    color: #fff;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 25px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-custom:hover {
+    background-color: #218838;
+    color: #fff;
+}
+
+/* Custom card styles */
+.card-custom {
+    border: none;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Custom heading styles */
+h1, h2 {
+    color: #333;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: 300;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Custom list group styles */
+.list-group-item {
+    border: none;
+    padding: 15px 20px;
+    background-color: #f8f9fa;
+    margin-bottom: 10px;
+    border-radius: 10px;
+}

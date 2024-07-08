@@ -5,12 +5,14 @@
 @section('content')
     <h1 class="text-center mb-4">Promotions</h1>
     @can('create', App\Models\Promotion::class)
-        <a href="{{ route('promotions.create') }}" class="btn btn-primary mb-3">Add New Promotion</a>
+        <div>
+            <a href="{{ route('promotions.create') }}" class="btn btn-custom">Add New Promotion</a><br><br>
+        </div>
     @endcan
     <div class="row">
         @foreach($promotions as $promotion)
             <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
+                <div class="card mb-4 shadow-sm card-custom">
                     <div class="card-body">
                         <h5 class="card-title">{{ $promotion->name }}</h5>
                         <p class="card-text">{{ $promotion->description }}</p>
