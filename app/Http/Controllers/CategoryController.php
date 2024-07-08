@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 
@@ -33,7 +34,8 @@ class CategoryController extends Controller
 
     public function show(Category $category)
     {
-        return view('categories.show', compact('category'));
+        $products = Product::where('category_id', $category->id)->where('stock_quantity', '>', 0)->get();
+        return view('categories.show', compact('category', 'products'));
     }
 
     public function edit(Category $category)

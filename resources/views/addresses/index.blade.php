@@ -15,7 +15,7 @@
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
                                 <a href="{{ route('addresses.show', $address) }}" class="btn btn-sm btn-outline-secondary">View</a>
-                                <a href="{{ route('addresses.edit', $address) }}" class="btn btn-sm btn-outline-secondary">Edit</a>
+                                <a href="{{ route('addresses.edit', $address) }}" class="btn btn-sm btn-outline-primary">Edit</a>
                                 <form action="{{ route('addresses.destroy', $address) }}" method="POST" style="display:inline-block;">
                                     @csrf
                                     @method('DELETE')

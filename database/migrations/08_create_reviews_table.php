@@ -16,7 +16,7 @@ return new class extends Migration
             $table->integer('rating');
             $table->text('comment');
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('product_id')->constrained();
+            $table->foreignId('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
         });
     }

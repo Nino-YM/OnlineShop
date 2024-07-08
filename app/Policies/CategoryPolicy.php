@@ -2,8 +2,8 @@
 
 namespace App\Policies;
 
-use App\Models\User;
 use App\Models\Category;
+use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
 class CategoryPolicy
@@ -29,16 +29,16 @@ class CategoryPolicy
 
     public function create(User $user)
     {
-        return $user->role_id === 1; 
+        return $user->role_id === 1;
     }
 
     public function update(User $user, Category $category)
     {
-        return $user->role_id === 1; 
+        return $user->role_id === 1;
     }
 
     public function delete(User $user, Category $category)
     {
-        return $user->role_id === 1; 
+        return $user->role_id === 1;
     }
 }

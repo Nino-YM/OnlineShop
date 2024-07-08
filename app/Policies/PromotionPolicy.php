@@ -31,14 +31,13 @@ class PromotionPolicy
     {
         return $user->role_id === 1; 
     }
-
     public function update(User $user, Promotion $promotion)
     {
-        return $user->role_id === 1; 
+        return $user->role_id === 1;
     }
 
     public function delete(User $user, Promotion $promotion)
     {
-        return $user->role_id === 1; 
+        return $user->role_id === 1;
     }
 }

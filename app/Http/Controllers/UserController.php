@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\Role;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -36,7 +37,8 @@ class UserController extends Controller
     {
         $this->authorize('view', $user);
         $user->load('role');
-        return view('users.show', compact('user'));
+        $roles = Role::all();
+        return view('users.show', compact('user', 'roles'));
     }
 
     public function edit(User $user)
@@ -55,7 +57,24 @@ class UserController extends Controller
     public function destroy(User $user)
     {
         $this->authorize('delete', $user);
+        $user->reviews()->delete();
+        $user->orders()->delete();
+        $user->favorites()->delete();
+        $user->addresses()->detach();
         $user->delete();
+    
         return redirect()->route('users.index')->with('success', 'User deleted successfully.');
     }
+    
+    public function updateRole(Request $request, User $user)
+    {
+        $this->authorize('update', $user);
+        $request->validate([
+            'role_id' => 'required|exists:roles,id',
+        ]);
+    
+        $user->update(['role_id' => $request->role_id]);
+        return redirect()->route('users.show', $user)->with('success', 'User role updated successfully.');
+    }
+    
 }

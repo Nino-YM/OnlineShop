@@ -42,11 +42,6 @@
                     </li>
                     @can('viewAny', \App\Models\User::class)
                         <li class="nav-item">
-                            <a class="nav-link" href="{{ route('roles.index') }}">Roles</a>
-                        </li>
-                    @endcan
-                    @can('viewAny', \App\Models\User::class)
-                        <li class="nav-item">
                             <a class="nav-link" href="{{ route('users.index') }}">Users</a>
                         </li>
                     @endcan

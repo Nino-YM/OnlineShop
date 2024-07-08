@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Address;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class AddressController extends Controller
 {
@@ -54,6 +55,10 @@ class AddressController extends Controller
     public function destroy(Address $address)
     {
         $this->authorize('delete', $address);
+        
+        DB::table('users')->where('address_id', $address->id)->update(['address_id' => null]);
+        $address->users()->detach();
+
         $address->delete();
         return redirect()->route('addresses.index');
     }

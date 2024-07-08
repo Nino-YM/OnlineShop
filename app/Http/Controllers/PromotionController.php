@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Product;
 use App\Models\Promotion;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PromotionController extends Controller
 {
@@ -30,10 +32,20 @@ class PromotionController extends Controller
         Promotion::create($request->all());
         return redirect()->route('promotions.index');
     }
-
-    public function show(Promotion $promotion)
+    
+    public function show($id)
     {
-        return view('promotions.show', compact('promotion'));
+        $promotion = Promotion::findOrFail($id);
+        $products = Product::whereExists(function ($query) use ($id) {
+            $query->select(DB::raw(1))
+                  ->from('promotions')
+                  ->join('product_promotion', 'promotions.id', '=', 'product_promotion.promotion_id')
+                  ->whereColumn('products.id', 'product_promotion.product_id')
+                  ->where('promotions.id', $id)
+                  ->where('products.stock_quantity', '>', 0);
+        })->get();
+    
+        return view('promotions.show', compact('promotion', 'products'));
     }
 
     public function edit(Promotion $promotion)
