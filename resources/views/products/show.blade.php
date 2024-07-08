@@ -32,5 +32,52 @@
                 </div>
             </div>
         </div>
+
+        <div class="row mt-5">
+            <div class="col-md-8 offset-md-2">
+                <h3>Reviews</h3>
+                @foreach($product->reviews as $review)
+                    <div class="card mb-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ $review->user->username }}</h5>
+                            <h6 class="card-subtitle mb-2 text-muted">Rating: {{ $review->rating }}</h6>
+                            <p class="card-text">{{ $review->comment }}</p>
+                            @can('delete', $review)
+                                <form action="{{ route('reviews.destroy', $review) }}" method="POST" style="display:inline-block;">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                                </form>
+                            @endcan
+                        </div>
+                    </div>
+                @endforeach
+
+                @auth
+                    <h4>Leave a Review</h4>
+                    <form action="{{ route('reviews.store') }}" method="POST">
+                        @csrf
+                        <input type="hidden" name="product_id" value="{{ $product->id }}">
+                        <div class="form-group">
+                            <label for="rating">Rating</label>
+                            <select name="rating" id="rating" class="form-control" required>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="comment">Comment</label>
+                            <textarea name="comment" id="comment" class="form-control" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Submit Review</button>
+                    </form>
+                @else
+                    <p>Please <a href="{{ route('login') }}">login</a> to leave a review.</p>
+                @endauth
+            </div>
+        </div>
     </div>
 @endsection

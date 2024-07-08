@@ -21,10 +21,10 @@
                                     <button type="submit" class="btn btn-sm btn-outline-danger">Remove from Favorites</button>
                                 </form>
                             </div>
-                            @if($cartItem->product->discounted_price < $cartItem->product->price)
-                                <p class="text-center"><strong>Price:</strong> <s>${{ $cartItem->product->price }}</s> ${{ $cartItem->product->discounted_price }}</p>
+                            @if($favorite->product->discounted_price < $favorite->product->price)
+                                <p class="text-center"><strong>Price:</strong> <s>${{ $favorite->product->price }}</s> ${{ $favorite->product->discounted_price }}</p>
                             @else
-                                <p class="text-center"><strong>Price:</strong> ${{ $cartItem->product->price }}</p>
+                                <p class="text-center"><strong>Price:</strong> ${{ $favorite->product->price }}</p>
                             @endif
                         </div>
                     </div>

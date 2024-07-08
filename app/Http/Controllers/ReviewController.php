@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Review;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
@@ -16,7 +17,7 @@ class ReviewController extends Controller
     {
         $this->authorize('viewAny', Review::class);
         $reviews = Review::with('product', 'user')->get();
-        return view('reviews.index', compact('reviews'));
+        return view('products.show', compact('reviews'));
     }
 
     public function create()
@@ -28,8 +29,15 @@ class ReviewController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create', Review::class);
-        Review::create($request->all());
-        return redirect()->route('reviews.index');
+        
+        $review = new Review();
+        $review->rating = $request->rating;
+        $review->comment = $request->comment;
+        $review->product_id = $request->product_id;
+        $review->user_id = Auth::id();
+        $review->save();
+
+        return redirect()->route('products.show', $review->product_id)->with('success', 'Review submitted successfully.');
     }
 
     public function show(Review $review)
@@ -48,13 +56,15 @@ class ReviewController extends Controller
     {
         $this->authorize('update', $review);
         $review->update($request->all());
-        return redirect()->route('reviews.index');
+        return redirect()->route('products.show');
     }
 
     public function destroy(Review $review)
     {
         $this->authorize('delete', $review);
+        $productId = $review->product_id;
         $review->delete();
-        return redirect()->route('reviews.index')->with('success', 'Review deleted successfully.');
+        return redirect()->route('products.show', $productId)->with('success', 'Review deleted successfully.');
     }
+    
 }
