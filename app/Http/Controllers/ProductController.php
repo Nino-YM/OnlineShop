@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class ProductController extends Controller
 {
@@ -29,7 +30,7 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $this->authorize('create', Product::class);
-
+    
         $validatedData = $request->validate([
             'name' => 'required|string|max:100',
             'description' => 'required|string',
@@ -37,13 +38,20 @@ class ProductController extends Controller
             'stock_quantity' => 'required|integer',
             'category_id' => 'required|exists:categories,id',
             'image_url' => 'nullable|url',
-            'image' => 'nullable|file|image'
+            'image' => 'nullable|file|image|max:2048'
         ]);
-
+    
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('products', 'public');
+            $validatedData['image_url'] = asset('storage/' . $imagePath);
+            $validatedData['image_name'] = $request->file('image')->getClientOriginalName();
+        }
+    
         Product::create($validatedData);
-
+    
         return redirect()->route('products.index');
     }
+    
 
     public function show(Product $product)
     {
@@ -61,7 +69,7 @@ class ProductController extends Controller
     public function update(Request $request, Product $product)
     {
         $this->authorize('update', $product);
-
+    
         $validatedData = $request->validate([
             'name' => 'required|string|max:100',
             'description' => 'required|string',
@@ -69,17 +77,27 @@ class ProductController extends Controller
             'stock_quantity' => 'required|integer',
             'category_id' => 'required|exists:categories,id',
             'image_url' => 'nullable|url',
-            'image' => 'nullable|file|image'
+            'image' => 'nullable|file|image|max:2048'
         ]);
-
+    
+        if ($request->hasFile('image')) {
+            $imagePath = $request->file('image')->store('products', 'public');
+            $validatedData['image_url'] = asset('storage/' . $imagePath);
+            $validatedData['image_name'] = $request->file('image')->getClientOriginalName();
+        }
+    
         $product->update($validatedData);
-
+    
         return redirect()->route('products.index');
     }
-
     public function destroy(Product $product)
     {
         $this->authorize('delete', $product);
+        
+        if ($product->image_name) {
+            Storage::disk('public')->delete($product->image_name);
+        }
+
         $product->delete();
         return redirect()->route('products.index');
     }
