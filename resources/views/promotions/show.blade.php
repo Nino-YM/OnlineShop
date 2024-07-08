@@ -29,7 +29,11 @@
                                         <button type="submit" class="btn btn-sm btn-outline-success">Add to Cart</button>
                                     </form>
                                 </div>
-                                <small class="text-muted">${{ $product->price }}</small>
+                                @if($product->discounted_price < $product->price)
+                                    <p class="text-center"><strong>Price:</strong> <s>${{ $product->price }}</s> ${{ $product->discounted_price }}</p>
+                                @else
+                                    <p class="text-center"><strong>Price:</strong> ${{ $product->price }}</p>
+                                @endif
                             </div>
                         </div>
                     </div>

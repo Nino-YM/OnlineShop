@@ -15,7 +15,8 @@ class Product extends Model
         'name',
         'description',
         'price',
-        'stock_quantity'
+        'stock_quantity',
+        'category_id'
     ];
 
     public function categories()
@@ -41,5 +42,19 @@ class Product extends Model
     public function favorites()
     {
         return $this->hasMany(Favorite::class);
+    }
+
+    public function getDiscountedPriceAttribute()
+    {
+        $promotion = $this->promotions()->where('start_date', '<=', now())
+                                       ->where('end_date', '>=', now())
+                                       ->first();
+
+        if ($promotion) {
+            $discount = ($this->price * $promotion->discount_percentage) / 100;
+            return $this->price - $discount;
+        }
+
+        return $this->price;
     }
 }

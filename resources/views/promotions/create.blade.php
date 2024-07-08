@@ -27,6 +27,14 @@
                 <label for="end_date">End Date</label>
                 <input type="date" name="end_date" class="form-control" id="end_date" required>
             </div>
+            <div class="form-group">
+                <label for="products">Select Products</label>
+                <select name="products[]" id="products" class="form-control" multiple required>
+                    @foreach($products as $product)
+                        <option value="{{ $product->id }}">{{ $product->name }}</option>
+                    @endforeach
+                </select>
+            </div>
             <button type="submit" class="btn btn-primary">Create Promotion</button>
         </form>
     </div>

@@ -34,7 +34,6 @@ class OrderController extends Controller
 
     public function show(Order $order)
     {
-        $this->authorize('view', $order);
         $order->load('products');
         return view('orders.show', compact('order'));
     }
@@ -54,7 +53,6 @@ class OrderController extends Controller
 
     public function destroy(Order $order)
     {
-        $this->authorize('delete', $order);
         $order->delete();
         return redirect()->route('orders.index')->with('success', 'Order cancelled successfully.');
     }

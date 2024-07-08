@@ -11,7 +11,11 @@
             <div class="col-md-6">
                 <h1 class="text-center">{{ $product->name }}</h1>
                 <p class="text-center">{{ $product->description }}</p>
-                <p class="text-center"><strong>Price:</strong> ${{ $product->price }}</p>
+                @if($product->discounted_price < $product->price)
+                    <p class="text-center"><strong>Price:</strong> <s>${{ $product->price }}</s> ${{ $product->discounted_price }}</p>
+                @else
+                    <p class="text-center"><strong>Price:</strong> ${{ $product->price }}</p>
+                @endif
                 <p class="text-center"><strong>In Stock:</strong> {{ $product->stock_quantity }}</p>
                 <div class="text-center">
                     <form action="{{ route('favorites.store') }}" method="POST" style="display:inline-block;">

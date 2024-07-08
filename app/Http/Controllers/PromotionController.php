@@ -23,16 +23,31 @@ class PromotionController extends Controller
     public function create()
     {
         $this->authorize('create', Promotion::class);
-        return view('promotions.create');
+        $products = Product::all(); // Fetch all products to pass to the view
+        return view('promotions.create', compact('products'));
     }
 
     public function store(Request $request)
     {
         $this->authorize('create', Promotion::class);
-        Promotion::create($request->all());
+
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'discount_percentage' => 'required|numeric|min:0|max:100',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'products' => 'required|array',
+            'products.*' => 'exists:products,id',
+        ]);
+
+        $promotion = Promotion::create($validatedData);
+
+        $promotion->products()->attach($request->products);
+
         return redirect()->route('promotions.index');
     }
-    
+
     public function show($id)
     {
         $promotion = Promotion::findOrFail($id);
@@ -51,13 +66,27 @@ class PromotionController extends Controller
     public function edit(Promotion $promotion)
     {
         $this->authorize('update', $promotion);
-        return view('promotions.edit', compact('promotion'));
+        $products = Product::all(); // Fetch all products to pass to the view
+        return view('promotions.edit', compact('promotion', 'products'));
     }
 
     public function update(Request $request, Promotion $promotion)
     {
         $this->authorize('update', $promotion);
-        $promotion->update($request->all());
+
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required|string',
+            'discount_percentage' => 'required|numeric|min:0|max:100',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
+            'products' => 'required|array',
+            'products.*' => 'exists:products,id',
+        ]);
+
+        $promotion->update($validatedData);
+        $promotion->products()->sync($request->products);
+
         return redirect()->route('promotions.index');
     }
 

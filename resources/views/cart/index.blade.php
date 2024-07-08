@@ -20,7 +20,11 @@
                                     <button type="submit" class="btn btn-sm btn-outline-danger">Remove from Cart</button>
                                 </form>
                             </div>
-                            <small class="text-muted">${{ $cartItem->product->price }}</small>
+                            @if($cartItem->product->discounted_price < $cartItem->product->price)
+                                <p class="text-center"><strong>Price:</strong> <s>${{ $cartItem->product->price }}</s> ${{ $cartItem->product->discounted_price }}</p>
+                            @else
+                                <p class="text-center"><strong>Price:</strong> ${{ $cartItem->product->price }}</p>
+                            @endif
                         </div>
                     </div>
                 </div>

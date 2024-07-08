@@ -26,7 +26,7 @@ Route::resource('cart', CartController::class)->only(['index', 'store', 'destroy
 
 Route::middleware('auth')->group(function () {
     Route::resource('favorites', FavoriteController::class)->only(['index', 'store', 'destroy']);
-    Route::resource('orders', OrderController::class)->only(['index', 'store', 'destroy', 'show']);
+    Route::resource('orders', OrderController::class)->only(['index', 'store', 'edit', 'update', 'destroy', 'show', 'create']);
     Route::resource('reviews', ReviewController::class)->only(['store', 'destroy']);
     Route::resource('users', UserController::class)->except(['create', 'store']);
     Route::resource('addresses', AddressController::class)->only(['index', 'store', 'edit', 'update', 'destroy', 'show', 'create']);
