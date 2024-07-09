@@ -5,28 +5,24 @@
         <ol class="carousel-indicators">
             <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
             <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
         </ol>
         <div class="carousel-inner">
             <div class="carousel-item active">
-                <img class="d-block w-100" src="https://via.placeholder.com/800x400" alt="First slide">
+                <a href="{{ route('products.show', 6) }}">
+                    <img class="d-block w-100" src="https://via.placeholder.com/800x400" alt="First slide">
+                </a>
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>First Slide</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                    <h5>Ferrofluid ! Brand New !</h5>
+                    <p>Check out our new ferrofluid arrival !</p>
                 </div>
             </div>
             <div class="carousel-item">
-                <img class="d-block w-100" src="https://via.placeholder.com/800x400" alt="Second slide">
+                <a href="{{ route('promotions.index') }}">
+                    <img class="d-block w-100" src="https://via.placeholder.com/800x400" alt="Second slide">
+                </a>
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Second Slide</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img class="d-block w-100" src="https://via.placeholder.com/800x400" alt="Third slide">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Third Slide</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit</p>
+                    <h5>Celebrating Newton's Birthday !</h5>
+                    <p>20% off on all items Newton related !</p>
                 </div>
             </div>
         </div>
