@@ -58,7 +58,11 @@
                                             <button type="submit" class="btn btn-sm btn-outline-success">Add to Cart</button>
                                         </form>
                                     </div>
-                                    <small class="text-muted">${{ $product->price }}</small>
+                                    @if($product->discounted_price < $product->price)
+                                    <small class="text-muted"><s>${{ $product->price }}</s> ${{ $product->discounted_price }}</small>
+                                    @else
+                                        <small class="text-muted">${{ $product->price }}</small>
+                                    @endif
                                 </div>
                             </div>
                         </div>
